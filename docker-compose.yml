@@ -1,0 +1,22 @@
+version: '3'
+services:
+  express-app:
+    build: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "mongodb://ilia830:iliailia830@db:27017/mydatabase?authSource=admin&directConnection=true"
+  db:
+    image: prismagraphql/mongo-single-replica:5.0.3
+    ports:
+      - "27017:27017"  # Изменен порт c 27015 на
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ilia830
+      MONGO_INITDB_ROOT_PASSWORD: iliailia830
+  react-app: 
+    build: ../react-client
+    ports:
+      - '80:80' # Порт, на котором будет доступно ваше React-приложение
+      - '8000:8000' # Порт, на котором будет доступно ваше React-приложение
